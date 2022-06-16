@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.monitoratec.tokenservice.vtswalletservice.client.provisioning.ConfirmProvisioningClient;
 import com.monitoratec.tokenservice.vtswalletservice.common.ApplicationProperties;
 import com.monitoratec.tokenservice.vtswalletservice.common.XPayTokenGenerator;
-import com.monitoratec.tokenservice.vtswalletservice.domain.model.ConfirmProvisioningModel;
+// import com.monitoratec.tokenservice.vtswalletservice.domain.model.ConfirmProvisioningModel;
 import com.monitoratec.tokenservice.vtswalletservice.exception.XPayTokenException;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.input.confirm.provisioning.ConfirmProvisioningPayload;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.output.confirm.provisioning.ConfirmProvisioningOutputPayload;
-import com.monitoratec.tokenservice.vtswalletservice.repository.ConfirmProvisioningRepository;
+//import com.monitoratec.tokenservice.vtswalletservice.repository.ConfirmProvisioningRepository;
 import com.monitoratec.tokenservice.vtswalletservice.service.ConfirmProvisioningService;
 import feign.FeignException;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class ConfirmProvisioningServiceImpl implements ConfirmProvisioningServic
     @Autowired
     private XPayTokenGenerator xPayTokenGenerator;
     @Autowired
-    private ConfirmProvisioningRepository confirmProvisioningRepository;
+    //private ConfirmProvisioningRepository confirmProvisioningRepository;
     private ObjectMapper MAPPER = new ObjectMapper();
 
     @Override
@@ -59,28 +59,28 @@ public class ConfirmProvisioningServiceImpl implements ConfirmProvisioningServic
                     xRequestId,
                     outputPayload);
         } catch (FeignException e) {
-            confirmProvisioningRepository.save(ConfirmProvisioningModel.builder()
-                    ._id(xRequestId)
-                    .createdAt(LocalDateTime.now())
-                    .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
-                    .confirmProvisioningOutputPayload(toJson(confirmProvisioningOutputPayload))
-                    .build());
+            // confirmProvisioningRepository.save(ConfirmProvisioningModel.builder()
+            //         ._id(xRequestId)
+            //         .createdAt(LocalDateTime.now())
+            //         .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
+            //         .confirmProvisioningOutputPayload(toJson(confirmProvisioningOutputPayload))
+            //         .build());
             throw e;
 
         } catch (Exception e) {
-            confirmProvisioningRepository.save(ConfirmProvisioningModel.builder()
-                    ._id(xRequestId)
-                    .createdAt(LocalDateTime.now())
-                    .confirmProvisioningOutputPayload(toJson(confirmProvisioningOutputPayload))
-                    .modelOfGenericInternalError(e.getMessage())
-                    .build());
+            // confirmProvisioningRepository.save(ConfirmProvisioningModel.builder()
+            //         ._id(xRequestId)
+            //         .createdAt(LocalDateTime.now())
+            //         .confirmProvisioningOutputPayload(toJson(confirmProvisioningOutputPayload))
+            //         .modelOfGenericInternalError(e.getMessage())
+            //         .build());
             throw e;
         }
-        confirmProvisioningRepository.save(ConfirmProvisioningModel.builder()
-                ._id(xRequestId)
-                .createdAt(LocalDateTime.now())
-                .confirmProvisioningOutputPayload(toJson(confirmProvisioningOutputPayload))
-                .build());
+        // confirmProvisioningRepository.save(ConfirmProvisioningModel.builder()
+        //         ._id(xRequestId)
+        //         .createdAt(LocalDateTime.now())
+        //         .confirmProvisioningOutputPayload(toJson(confirmProvisioningOutputPayload))
+        //         .build());
 
         logger.info("_______ END putConfirmProvisioning __________ ");
 

@@ -6,11 +6,11 @@ import com.monitoratec.tokenservice.vtswalletservice.client.provisiontoken.Provi
 import com.monitoratec.tokenservice.vtswalletservice.common.ApplicationProperties;
 import com.monitoratec.tokenservice.vtswalletservice.common.EncryptionGenerator;
 import com.monitoratec.tokenservice.vtswalletservice.common.XPayTokenGenerator;
-import com.monitoratec.tokenservice.vtswalletservice.domain.model.ProvisionTokenProvisionedTokensForAPaymentInstrumentModel;
+// import com.monitoratec.tokenservice.vtswalletservice.domain.model.ProvisionTokenProvisionedTokensForAPaymentInstrumentModel;
 import com.monitoratec.tokenservice.vtswalletservice.exception.XPayTokenException;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.input.provision.token.payment.instrument.ProvisionedTokensForAPaymentInstrumentPayload;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.output.provision.token.payment.instrument.ProvisionedTokensForAPaymentInstrumentOutputPayload;
-import com.monitoratec.tokenservice.vtswalletservice.repository.ProvisionTokenProvisionedTokensForAPaymentInstrumentRepository;
+// import com.monitoratec.tokenservice.vtswalletservice.repository.ProvisionTokenProvisionedTokensForAPaymentInstrumentRepository;
 import com.monitoratec.tokenservice.vtswalletservice.service.ProvisionedTokensForAPaymentInstrumentService;
 import com.nimbusds.jose.JOSEException;
 import feign.FeignException;
@@ -37,8 +37,8 @@ public class ProvisionedTokensForAPaymentInstrumentServiceImpl implements Provis
     private XPayTokenGenerator xPayTokenGenerator;
     @Autowired
     private EncryptionGenerator encryptionGenerator;
-    @Autowired
-    private ProvisionTokenProvisionedTokensForAPaymentInstrumentRepository provisionTokenProvisionedTokensForAPaymentInstrumentRepository;
+    // @Autowired
+    // private ProvisionTokenProvisionedTokensForAPaymentInstrumentRepository provisionTokenProvisionedTokensForAPaymentInstrumentRepository;
 
     private final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -66,25 +66,25 @@ public class ProvisionedTokensForAPaymentInstrumentServiceImpl implements Provis
                     xRequestId,
                     outputPayload);
         }catch (FeignException e){
-            provisionTokenProvisionedTokensForAPaymentInstrumentRepository.save(ProvisionTokenProvisionedTokensForAPaymentInstrumentModel.builder()
-                    ._id(xRequestId)
-                    .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
-                    .provisionedTokensForAPaymentInstrumentOutputPayload(toJson(provisionedTokensForAPaymentInstrumentOutputPayload))
-                    .build());
+            // provisionTokenProvisionedTokensForAPaymentInstrumentRepository.save(ProvisionTokenProvisionedTokensForAPaymentInstrumentModel.builder()
+            //         ._id(xRequestId)
+            //         .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
+            //         .provisionedTokensForAPaymentInstrumentOutputPayload(toJson(provisionedTokensForAPaymentInstrumentOutputPayload))
+            //         .build());
             throw e;
         }catch (Exception e){
-            provisionTokenProvisionedTokensForAPaymentInstrumentRepository.save(ProvisionTokenProvisionedTokensForAPaymentInstrumentModel.builder()
-                    ._id(xRequestId)
-                    .provisionedTokensForAPaymentInstrumentOutputPayload(toJson(provisionedTokensForAPaymentInstrumentOutputPayload))
-                    .modelOfGenericInternalError(e.getMessage())
-                    .build());
+            // provisionTokenProvisionedTokensForAPaymentInstrumentRepository.save(ProvisionTokenProvisionedTokensForAPaymentInstrumentModel.builder()
+            //         ._id(xRequestId)
+            //         .provisionedTokensForAPaymentInstrumentOutputPayload(toJson(provisionedTokensForAPaymentInstrumentOutputPayload))
+            //         .modelOfGenericInternalError(e.getMessage())
+            //         .build());
             throw e;
         }
-        provisionTokenProvisionedTokensForAPaymentInstrumentRepository.save(ProvisionTokenProvisionedTokensForAPaymentInstrumentModel.builder()
-                ._id(xRequestId)
-                .provisionedTokensForAPaymentInstrumentOutputPayload(toJson(provisionedTokensForAPaymentInstrumentOutputPayload))
-                .modelOfSuccessVtsCall(toJson(response))
-                .build());
+        // provisionTokenProvisionedTokensForAPaymentInstrumentRepository.save(ProvisionTokenProvisionedTokensForAPaymentInstrumentModel.builder()
+        //         ._id(xRequestId)
+        //         .provisionedTokensForAPaymentInstrumentOutputPayload(toJson(provisionedTokensForAPaymentInstrumentOutputPayload))
+        //         .modelOfSuccessVtsCall(toJson(response))
+        //         .build());
         logger.info("_______ END provisionedTokensForAPaymentInstrument __________ ");
 
         return response;

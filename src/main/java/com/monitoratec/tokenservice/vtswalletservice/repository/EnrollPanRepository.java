@@ -1,7 +1,7 @@
-package com.monitoratec.tokenservice.vtswalletservice.repository;
+// package com.monitoratec.tokenservice.vtswalletservice.repository;
 
-import com.monitoratec.tokenservice.vtswalletservice.domain.model.EnrollPanModel;
-import org.springframework.data.mongodb.repository.MongoRepository;
+// import com.monitoratec.tokenservice.vtswalletservice.domain.model.EnrollPanModel;
+// import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface EnrollPanRepository extends MongoRepository<EnrollPanModel, String> {
-}
+// public interface EnrollPanRepository extends MongoRepository<EnrollPanModel, String> {
+// }

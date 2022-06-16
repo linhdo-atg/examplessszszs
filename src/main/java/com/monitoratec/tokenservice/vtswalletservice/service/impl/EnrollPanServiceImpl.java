@@ -6,12 +6,12 @@ import com.monitoratec.tokenservice.vtswalletservice.common.ApplicationPropertie
 import com.monitoratec.tokenservice.vtswalletservice.common.EncryptionGenerator;
 import com.monitoratec.tokenservice.vtswalletservice.common.XPayTokenGenerator;
 import com.monitoratec.tokenservice.vtswalletservice.constant.device.enrollment.device.CertUsage;
-import com.monitoratec.tokenservice.vtswalletservice.domain.model.EnrollPanModel;
+// import com.monitoratec.tokenservice.vtswalletservice.domain.model.EnrollPanModel;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.input.device.enrollment.device.DeviceCerts;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.input.pan.enrollment.EnrollPanPayload;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.output.pan.enrollment.EnrollPanOutputPayload;
 import com.monitoratec.tokenservice.vtswalletservice.exception.XPayTokenException;
-import com.monitoratec.tokenservice.vtswalletservice.repository.EnrollPanRepository;
+// import com.monitoratec.tokenservice.vtswalletservice.repository.EnrollPanRepository;
 import com.monitoratec.tokenservice.vtswalletservice.service.EnrollPanService;
 import com.nimbusds.jose.JOSEException;
 import feign.FeignException;
@@ -40,8 +40,8 @@ public class EnrollPanServiceImpl implements EnrollPanService {
     private XPayTokenGenerator xPayTokenGenerator;
     @Autowired
     private EncryptionGenerator encryptionGenerator;
-    @Autowired
-    private EnrollPanRepository enrollPanRepository;
+    // @Autowired
+    // private EnrollPanRepository enrollPanRepository;
 
     private ObjectMapper MAPPER = new ObjectMapper();
 
@@ -68,25 +68,25 @@ public class EnrollPanServiceImpl implements EnrollPanService {
                 xRequestId,
                 payLoad);
         }catch(FeignException e){
-            enrollPanRepository.save(EnrollPanModel.builder()
-                ._id(xRequestId)
-                .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
-                .enrollPanRequestBody(toJson(enrollPanOutputPayload))
-                .build());
+            // enrollPanRepository.save(EnrollPanModel.builder()
+            //     ._id(xRequestId)
+            //     .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
+            //     .enrollPanRequestBody(toJson(enrollPanOutputPayload))
+            //     .build());
             throw e;
         }catch (Exception e){
-            enrollPanRepository.save(EnrollPanModel.builder()
-                ._id(xRequestId)
-                .enrollPanRequestBody(toJson(enrollPanOutputPayload))
-                .modelOfGenericInternalError(e.getMessage())
-                .build());
+            // enrollPanRepository.save(EnrollPanModel.builder()
+            //     ._id(xRequestId)
+            //     .enrollPanRequestBody(toJson(enrollPanOutputPayload))
+            //     .modelOfGenericInternalError(e.getMessage())
+            //     .build());
             throw e;
         }
-        enrollPanRepository.save(EnrollPanModel.builder()
-            ._id(xRequestId)
-            .enrollPanRequestBody(toJson(enrollPanOutputPayload))
-            .modelOfSuccessVtsCall(toJson(response))
-            .build());
+        // enrollPanRepository.save(EnrollPanModel.builder()
+        //     ._id(xRequestId)
+        //     .enrollPanRequestBody(toJson(enrollPanOutputPayload))
+        //     .modelOfSuccessVtsCall(toJson(response))
+        //     .build());
         logger.info("_______ END postPanEnrollment __________ ");
         return response;
     }

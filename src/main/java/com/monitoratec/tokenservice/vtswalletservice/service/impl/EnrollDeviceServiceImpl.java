@@ -8,7 +8,7 @@ import com.monitoratec.tokenservice.vtswalletservice.common.ApplicationPropertie
 import com.monitoratec.tokenservice.vtswalletservice.common.EncryptionGenerator;
 import com.monitoratec.tokenservice.vtswalletservice.common.XPayTokenGenerator;
 import com.monitoratec.tokenservice.vtswalletservice.constant.device.enrollment.device.CertUsage;
-import com.monitoratec.tokenservice.vtswalletservice.domain.model.DeviceEnrollmentModel;
+// import com.monitoratec.tokenservice.vtswalletservice.domain.model.DeviceEnrollmentModel;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.input.device.enrollment.das.DasDeviceEnrollmentPayload;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.input.device.enrollment.delete.DeleteDeviceTokenBindingPayload;
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.input.device.enrollment.device.DeviceCerts;
@@ -19,7 +19,7 @@ import com.monitoratec.tokenservice.vtswalletservice.domain.payload.output.devic
 import com.monitoratec.tokenservice.vtswalletservice.domain.payload.output.device.enrollment.tokenbind.EnrollDeviceTokenBindOutputPayload;
 import com.monitoratec.tokenservice.vtswalletservice.exception.GenericSecurityException;
 import com.monitoratec.tokenservice.vtswalletservice.exception.XPayTokenException;
-import com.monitoratec.tokenservice.vtswalletservice.repository.EnrollDeviceRepository;
+//import com.monitoratec.tokenservice.vtswalletservice.repository.EnrollDeviceRepository;
 import com.monitoratec.tokenservice.vtswalletservice.service.EnrollDeviceService;
 import com.nimbusds.jose.JOSEException;
 import feign.FeignException;
@@ -53,8 +53,8 @@ public class EnrollDeviceServiceImpl implements EnrollDeviceService {
     private XPayTokenGenerator xPayTokenGenerator;
     @Autowired
     private EncryptionGenerator encryptionGenerator;
-    @Autowired
-    private EnrollDeviceRepository enrollDeviceRepository;
+    // @Autowired
+    // private EnrollDeviceRepository enrollDeviceRepository;
 
     private ObjectMapper MAPPER = new ObjectMapper();
 
@@ -92,26 +92,26 @@ public class EnrollDeviceServiceImpl implements EnrollDeviceService {
                     xRequestId,
                     outputPayload);
         }catch(FeignException e){
-            enrollDeviceRepository.save(DeviceEnrollmentModel.builder()
-                    ._id(xRequestId)
-                    .createdAt(LocalDateTime.now())
-                    .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
-                    .enrollDeviceRequestBody(toJson(enrollDeviceOutputPayload))
-                    .build());
+            // enrollDeviceRepository.save(DeviceEnrollmentModel.builder()
+            //         ._id(xRequestId)
+            //         .createdAt(LocalDateTime.now())
+            //         .modelOfErrorVtsCall(MAPPER.writeValueAsString(e))
+            //         .enrollDeviceRequestBody(toJson(enrollDeviceOutputPayload))
+            //         .build());
             throw e;
         }catch (Exception e){
-            enrollDeviceRepository.save(DeviceEnrollmentModel.builder()
-                    ._id(xRequestId)
-                    .enrollDeviceRequestBody(toJson(enrollDeviceOutputPayload))
-                    .modelOfGenericInternalError(e.getMessage())
-                    .build());
+            // enrollDeviceRepository.save(DeviceEnrollmentModel.builder()
+            //         ._id(xRequestId)
+            //         .enrollDeviceRequestBody(toJson(enrollDeviceOutputPayload))
+            //         .modelOfGenericInternalError(e.getMessage())
+            //         .build());
             throw e;
         }
-        enrollDeviceRepository.save(DeviceEnrollmentModel.builder()
-                ._id(xRequestId)
-                .enrollDeviceRequestBody(toJson(enrollDeviceOutputPayload))
-                .modelOfSuccessVtsCall(toJson(response))
-                .build());
+        // enrollDeviceRepository.save(DeviceEnrollmentModel.builder()
+        //         ._id(xRequestId)
+        //         .enrollDeviceRequestBody(toJson(enrollDeviceOutputPayload))
+        //         .modelOfSuccessVtsCall(toJson(response))
+        //         .build());
         logger.info("_______ END putDeviceEnrollment __________ ");
 
         return response;
